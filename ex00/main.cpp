@@ -4,7 +4,7 @@ int main(int ac, char **av)
 {
     if (ac != 2)
     {
-        std::cerr << "Error: could not open file." << std::endl;
+        std::cerr << "Usage: ./btc [input_file]" << std::endl;
         return 1;
     }
 
@@ -17,6 +17,11 @@ int main(int ac, char **av)
     {
         std::cerr << "Error: could not open file." << std::endl;
         return 1;
+    }
+
+    if (file.peek() == std::ifstream::traits_type::eof())
+    {
+        std::cerr << "Error: empty input file." << std::endl;
     }
 
     std::getline(file, line); // Skip the first line (header)

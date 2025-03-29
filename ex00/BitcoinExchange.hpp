@@ -3,6 +3,14 @@
 
 #include <bits/stdc++.h>
 
+//why the container map?
+// - Key-Value Pairs: The std::map stores dates as keys (std::string) and exchange rates as values (float)
+// - Automatic Sorting by Date: std::map automatically keeps keys (dates) in sorted order
+//                              This allows for easy range queries, like finding the closest past date using lower_bound()
+// - Unique Dates (No Duplicates): std::map ensures that each date appears only once.
+
+//vectors and lists accept duplicates and are not sorted! so i couldn t use the lower_bound() function
+
 class BitcoinExchange
 {
 private:
