@@ -1,7 +1,15 @@
 #ifndef BITCOINEXCHANGE_HPP
 #define BITCOINEXCHANGE_HPP
 
-#include <bits/stdc++.h>
+#include <iostream>     // std::cout, std::cerr
+#include <fstream>      // std::ifstream, for file handling
+#include <sstream>      // std::stringstream, for parsing strings like a stream; can extract data types with getline, just like reading from a file
+#include <string>       // std::string
+#include <vector>       // std::vector, for storing multiple values
+#include <map>          // std::map, for key-value storage (database implementation)
+#include <exception>    // std::exception
+#include <cstdlib>      // std::exit, std::strtof
+#include <ctime>        // std::tm, strptime
 
 //why the container map?
 // - Key-Value Pairs: The std::map stores dates as keys (std::string) and exchange rates as values (float)
