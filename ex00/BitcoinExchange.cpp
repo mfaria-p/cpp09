@@ -58,9 +58,37 @@ void BitcoinExchange::readCsvDataBase(void)
     file.close();
 }
 
-void BitcoinExchange::checkForValue(std::string &line)
+bool BitcoinExchange::isValidDate(const std::string &date) const
 {
     struct tm tm;
+    
+    if (!strptime(date.c_str(), "%Y-%m-%d", &tm))
+        return false;
+
+    int year = atoi(date.substr(0, 4).c_str());
+    int month = atoi(date.substr(5, 2).c_str());
+    int day = atoi(date.substr(8, 2).c_str());
+
+    int maxDay;
+    switch (month)
+    {
+        case 2:
+            maxDay = 28;
+            if (year % 4 == 0 && (year % 100 != 0 || year % 400 == 0))
+                maxDay = 29;
+            break;
+        case 4: case 6: case 9: case 11:
+            maxDay = 30;
+            break;
+        default:
+            maxDay = 31;
+            break;
+    }
+    return day <= maxDay;
+}
+
+void BitcoinExchange::checkForValue(std::string &line)
+{
     float value;
     std::stringstream ss(line);
     std::string word;
@@ -82,8 +110,8 @@ void BitcoinExchange::checkForValue(std::string &line)
 
     date = words[0];
     value = strtof(words[1].c_str(), NULL);
-    
-    if (!strptime(date.c_str(), "%Y-%m-%d", &tm))
+
+    if (!isValidDate(date))
         throw BadDateException();
 
     if (value < 0)

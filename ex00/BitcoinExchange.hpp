@@ -34,6 +34,7 @@ private:
 
     void readCsvDataBase(void);
     void checkForValue(std::string &line);
+    bool isValidDate(const std::string &date) const;
 
     class BadDateException : public std::exception //bad input for the date. Example: 2020-13-01
     {
